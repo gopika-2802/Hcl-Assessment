@@ -1,0 +1,85 @@
+
+import java.util.Scanner;
+
+// Base Class
+class Vehicle {
+    double dailyRate;
+
+    // Constructor
+    Vehicle(double dailyRate) {
+        this.dailyRate = dailyRate;
+    }
+
+    // Calculate Rental Charge
+    double calculateRentalCharge(int rentalDays) {
+        return dailyRate * rentalDays;
+    }
+
+    // Get Vehicle Type
+    String getVehicleType() {
+        return "Vehicle";
+    }
+}
+
+// Car Class
+class Car extends Vehicle {
+    Car() {
+        super(1500.0);
+    }
+
+    @Override
+    String getVehicleType() {
+        return "Car";
+    }
+}
+
+// Bike Class
+class Bike extends Vehicle {
+    Bike() {
+        super(600.0);
+    }
+
+    @Override
+    String getVehicleType() {
+        return "Bike";
+    }
+}
+
+// Truck Class
+class Truck extends Vehicle {
+    Truck() {
+        super(3000.0);
+    }
+
+    @Override
+    String getVehicleType() {
+        return "Truck";
+    }
+}
+
+// Main Class
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int vehicleType = sc.nextInt();
+        int rentalDays = sc.nextInt();
+
+        Vehicle vehicle;
+
+        if (vehicleType == 1) {
+            vehicle = new Car();
+        } else if (vehicleType == 2) {
+            vehicle = new Bike();
+        } else {
+            vehicle = new Truck();
+        }
+
+        double charge = vehicle.calculateRentalCharge(rentalDays);
+
+        System.out.println("Vehicle Type: " + vehicle.getVehicleType());
+        System.out.printf("Rental Charge: %.2f%n", charge);
+
+        sc.close();
+    }
+}
