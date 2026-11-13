@@ -1,0 +1,94 @@
+
+import java.util.Scanner;
+
+// Abstract Class
+abstract class Doctor {
+    double consultationCharge;
+
+    // Constructor
+    Doctor(double consultationCharge) {
+        this.consultationCharge = consultationCharge;
+    }
+
+    // Abstract Method
+    abstract String getDoctorType();
+
+    // Concrete Method
+    double calculateTotalBill(double testCharges) {
+        return consultationCharge;
+    }
+}
+
+// General Physician
+class GeneralPhysician extends Doctor {
+
+    GeneralPhysician() {
+        super(500.0);
+    }
+
+    @Override
+    String getDoctorType() {
+        return "General Physician";
+    }
+}
+
+// Specialist
+class Specialist extends Doctor {
+
+    Specialist() {
+        super(1000.0);
+    }
+
+    @Override
+    String getDoctorType() {
+        return "Specialist";
+    }
+}
+
+// Emergency Doctor
+class EmergencyDoctor extends Doctor {
+
+    EmergencyDoctor() {
+        super(1500.0);
+    }
+
+    @Override
+    String getDoctorType() {
+        return "Emergency Doctor";
+    }
+
+    @Override
+    double calculateTotalBill(double testCharges) {
+        return consultationCharge + testCharges;
+    }
+}
+
+// Main Class
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int doctorType = sc.nextInt();
+        double testCharges = sc.nextDouble();
+
+        Doctor doctor;
+
+        if (doctorType == 1) {
+            doctor = new GeneralPhysician();
+        } else if (doctorType == 2) {
+            doctor = new Specialist();
+        } else {
+            doctor = new EmergencyDoctor();
+        }
+
+        double totalBill = doctor.calculateTotalBill(testCharges);
+
+        System.out.println("Doctor Type: " + doctor.getDoctorType());
+        System.out.printf("Consultation Charge: %.2f%n",
+                          doctor.consultationCharge);
+        System.out.printf("Test Charges: %.2f%n", testCharges);
+        System.out.printf("Total Bill: %.2f%n", totalBill);
+
+        sc.close();
+    }
+}
