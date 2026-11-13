@@ -1,0 +1,105 @@
+
+import java.util.Scanner;
+
+// Abstract Class
+abstract class Course {
+    double courseFee;
+
+    // Constructor
+    Course(double courseFee) {
+        this.courseFee = courseFee;
+    }
+
+    // Abstract Methods
+    abstract double calculateDiscount();
+
+    abstract String getCourseType();
+
+    // Concrete Method
+    double calculateFinalFee() {
+        return courseFee - calculateDiscount();
+    }
+}
+
+// Programming Course
+class ProgrammingCourse extends Course {
+
+    ProgrammingCourse(double courseFee) {
+        super(courseFee);
+    }
+
+    @Override
+    double calculateDiscount() {
+        return courseFee * 10 / 100;
+    }
+
+    @Override
+    String getCourseType() {
+        return "Programming";
+    }
+}
+
+// Data Science Course
+class DataScienceCourse extends Course {
+
+    DataScienceCourse(double courseFee) {
+        super(courseFee);
+    }
+
+    @Override
+    double calculateDiscount() {
+        return courseFee * 15 / 100;
+    }
+
+    @Override
+    String getCourseType() {
+        return "Data Science";
+    }
+}
+
+// Cloud Course
+class CloudCourse extends Course {
+
+    CloudCourse(double courseFee) {
+        super(courseFee);
+    }
+
+    @Override
+    double calculateDiscount() {
+        return courseFee * 5 / 100;
+    }
+
+    @Override
+    String getCourseType() {
+        return "Cloud";
+    }
+}
+
+// Main Class
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int courseType = sc.nextInt();
+        double courseFee = sc.nextDouble();
+
+        Course course;
+
+        if (courseType == 1) {
+            course = new ProgrammingCourse(courseFee);
+        } else if (courseType == 2) {
+            course = new DataScienceCourse(courseFee);
+        } else {
+            course = new CloudCourse(courseFee);
+        }
+
+        double discount = course.calculateDiscount();
+        double finalFee = course.calculateFinalFee();
+
+        System.out.println("Course Type: " + course.getCourseType());
+        System.out.printf("Discount: %.2f%n", discount);
+        System.out.printf("Final Fee: %.2f%n", finalFee);
+
+        sc.close();
+    }
+}
